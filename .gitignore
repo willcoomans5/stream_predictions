@@ -1,3 +1,4 @@
 # .gitignore
 .env
 models/
+models/rfr_streampreds.joblib
