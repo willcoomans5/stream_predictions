@@ -1,15 +1,2 @@
 # .gitignore
 .env
-models/
-models/rfr_streampreds.joblib
-myenv/lib/python3.9/site-packages/numpy/.dylibs/libscipy_openblas64_.dylib
-myenv/lib/python3.9/site-packages/torch/lib/libtorch_cpu.dylib
-
-
-./models/rfr_streampreds.joblib
-./myenv/lib/python3.9/site-packages/torch/lib/libtorch_cpu.dylib
-./myenv/lib/python3.9/site-packages/numpy/.dylibs/libscipy_openblas64_.dylib
-./.git/objects/pack/pack-9e8e4b1c891926c7a59fbf66d2f2a36bcbf3fdee.pack
-./.git/lfs/objects/11/fe/11fe4293134e1b32dd1c2df86540937ad293e3dbae244501ef25f6cb6f0ff03e
-./.git/lfs/objects/a6/c7/a6c7d84eda471c391c3cf0687765ee08d8499888fe34a22d5664328e25818352
-./.git/lfs/objects/78/57/7857df339c638447bd70b5b429f81679d66f3dfcbc62e4cf2ef598fe65956780
