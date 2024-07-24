@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <head> Hello World! </head>
+    <h1> 
+        My name is {{ user.username }}, and I am {{ user.age }} years old!
+    </h1>
+
+    {% if not user.role %}
+    <h2>You are broke! hahaha</h2>
+    {% elif user.role == 'Student' %}
+    <h2>Keep studying {{ user.role }}!</h2>
+    {% else %}
+    <h2>Wow okay! you are working hard as a {{ user.role }}</h2>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+
+</head>
+<body>
+    
+</body>
+</html>
