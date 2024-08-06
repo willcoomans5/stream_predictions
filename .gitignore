@@ -3,3 +3,7 @@
 myenv/lib/python3.9/site-packages/torch/lib/libtorch_cpu.dylib
 models/*.joblib
 csv_files/*.csv
+.ipynb_checkpoints/
+__pycache__/
+myenv/
+.DS_Store
