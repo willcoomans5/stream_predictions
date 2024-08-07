@@ -1,5 +1,5 @@
 import nbimporter
-from song import Song
+from song import OneWeekSong, ThreeWeekSong
 import uvicorn
 from fastapi import FastAPI
 import pandas as pd
@@ -19,8 +19,13 @@ def index():
     return {"message": "Stream predictions"}
 
 
-def oneweek_preprocess(request: Song):
-    song_df = pd.DataFrame([request.dict()])
+def oneweek_preprocess(request: OneWeekSong):
+
+    song_dict = request.model_dump()
+    if any(val < 0 for val in song_dict.values()):
+        raise ValueError("All parameters must be positive values!")
+
+    song_df = pd.DataFrame([song_dict])
 
     for i in range(7):
         # Add 1 to prevent taking the log of 0
@@ -45,16 +50,28 @@ def oneweek_preprocess(request: Song):
     return song_df[features]
 
 
-def threeweek_preprocess(data: Song):
-    song_data = data.dict()
+def threeweek_preprocess(request: ThreeWeekSong):
+    song_dict = request.model_dump()
+    if any(val < 0 for val in song_dict.values()):
+        raise ValueError("All parameters must be positive values!")
+
+    song_df = pd.DataFrame([song_dict])
     for i in range(21):
-        song_data[f'day_{i}'] = np.log(song_data[f'day_{i}'] + 1)
-    song_data['days_since_release'] = np.log(song_data['days_since_release'])
-    return pd.DataFrame({key: [value] for key, value in song_data.items})
+        # Add one to prevent taking the log of 0
+        song_df[f'log day_{i}'] = np.log(song_df[f'day_{i}'] + 1)
+
+    # Add one to prevent taking the log of 0
+    song_df['log days_since_release'] = np.log(
+        song_df['days_since_release'] + 1)
+
+    features = [f'log day_{i}' for i in range(
+        21)] + ['popularity', 'log days_since_release']
+
+    return song_df[features]
 
 
 @app.post('/oneweek/predict')
-def predict(data: Song):
+def predict(data: OneWeekSong):
     df = oneweek_preprocess(data)
     lr_preds = np.e**(one_week_lr.predict(df)[0])
     rfr_preds = np.e**(one_week_rfr.predict(df)[0])
@@ -62,8 +79,8 @@ def predict(data: Song):
 
 
 @app.post('/threeweek/predict')
-def predict(data: Song):
-    df = oneweek_preprocess(data)
-    lr_preds = np.e**(one_week_lr.predict(df)[0])
-    rfr_preds = np.e**(one_week_rfr.predict(df)[0])
-    return {"lr_preds": lr_preds, "rfr_preds": rfr_preds}
+def predict(data: ThreeWeekSong):
+    df = threeweek_preprocess(data)
+    three_week_preds = np.e**(three_week_lr.predict(df)[0])
+
+    return {"three_week_preds": three_week_preds}
