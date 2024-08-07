@@ -81,6 +81,7 @@ Run the container on your local machine
 docker run -p 8000:8000 willcoomans/test-image:latest
 ```
 
+Open the URL `http://localhost:8000` in your browser. To interact with the API directly, you may access `http://localhost8000/docs`
 
 
 
