@@ -65,7 +65,22 @@ curl -X POST "http://localhost:8000/oneweek/predict" -H "Content-Type: applicati
   "day_5": 650,
   "day_6": 600
 }'
-``
+```
+
+## Docker
+
+The Dockerfile contains all of the information for the Docker image. I have pushed the image to the repository `willcoomans/test-image` on Docker Hub. To run the container:
+
+Pull the image from Docker Hub
+``` bash
+docker pull willcoomans/test-image:latest
+```
+
+Run the container on your local machine
+```bash
+docker run -p 8000:8000 willcoomans/test-image:latest
+```
+
 
 
 
