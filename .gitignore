@@ -8,5 +8,4 @@ csv_files/*.csv
 .ipynb_checkpoints
 .pytest_cache
 /__pycache__
-/
 
