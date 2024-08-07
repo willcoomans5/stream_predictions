@@ -1,7 +1,7 @@
 from fastapi.testclient import TestClient
-from app import app  # Adjust the import based on your app structure
+from app.main import app  # Adjust the import based on your app structure
 # Adjust based on your actual model imports
-from song import OneWeekSong, ThreeWeekSong
+from app.song import OneWeekSong, ThreeWeekSong
 import pytest
 
 client = TestClient(app)
