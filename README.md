@@ -1,20 +1,33 @@
 # Stream Predictions for Tracks on Digital Streaming Platforms (DSPs)
 
+## Table of Contents
+- [Project Overview](#project-overview)
+- [Dataset](#dataset)
+- [Target Variable](#target-variable)
+- [Data Pipeline](#data-pipeline)
+- [Models](#models)
+   - [One-Week Trend Prediction](#one-week-trend-prediction)
+   - [Three-Week Trend Prediction](#three-week-trend-prediction)
+- [RESTful API](#restful-api)
+   - [Endpoints](#endpoints)
+   - [Example Request](#example-request)
+- [Docker](#docker)
+
 ## Project Overview
 
-This project aims to create several models designed to predict song streaming trends. We have defined two models that predict a song's streams during its next full week and one model that predicts a song's streams during its third week. We leverage algorithms such as linear regression, random forests, and support vector machines. We also experiment with various features such as social media data in social_media_preds.ipynb, though those models have not been stored.
+This project aims to create several models designed to predict song streaming trends. We have defined two models that predict a song's streams during its next full week and one model that predicts a song's streams during its third week. We leverage algorithms such as linear regression, random forests, and support vector machines. We also experiment with various features such as social media data in `social_media_preds.ipynb`, though those models have not been stored.
 
-We have also build a RESTful API using FastAPI, which provides endpoints for each of our models' predictions. The API has been containerized with Docker.
+We have built a RESTful API using FastAPI, which provides endpoints for each of our models' predictions. The API has been containerized with Docker.
 
-### Dataset
+## Dataset
 
 - `csv_files/snowflake_data.csv`
 - `csv_files/alltime_socials.csv`
 - `csv_files/three_week_data.csv`
-  
-In the music world, streaming weeks start on Friday and end on Thursday. Thus, each of our csv files only contains records from Thursday. This is to ensure our target variable captures a full weeks worth of data.
 
-### Target Variable
+In the music world, streaming weeks start on Friday and end on Thursday. Thus, each of our CSV files only contains records from Thursday. This is to ensure our target variable captures a full week's worth of data.
+
+## Target Variable
 
 - **One Week Predictions**: The number of streams a song receives during its next full week. If we have a record for a song from Thursday, August 1, 2024, our target variable is the song's total streams from August 2 - 8.
 - **Three Week Predictions**: The number of streams a song receives during its third full week from today. If we have a record for a song from Thursday, August 1, 2024, our target variable is the song's total streams from August 16 - 22.
@@ -82,6 +95,5 @@ docker run -p 8000:8000 willcoomans/test-image:latest
 ```
 
 Open the URL `http://localhost:8000` in your browser. To interact with the API directly, you may access `http://localhost8000/docs`
-
 
 
